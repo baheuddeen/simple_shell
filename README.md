@@ -3,8 +3,8 @@ This is an ALX collaboration project on Shell. We were tasked to create a simple
 
 ## Project was completed using
 • C language
-• Shell  
-• Betty linter 
+• Shell
+• Betty linter
 
 ## General Requirement for project
 • All files will be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror -Wextra -pedantic -std=gnu89
