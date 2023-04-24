@@ -1,5 +1,3 @@
-![Snap (3)](https://user-images.githubusercontent.com/113179672/234089557-6d38dc65-8544-431c-a539-ee21cdcb24ae.png)
-
 # ALX Simple Shell Team Project
 This is an ALX collaboration project on Shell. We were tasked to create a simple shell that mimics the Bash shell. Our shell shall be called hsh
 
