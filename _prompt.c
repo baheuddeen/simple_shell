@@ -2,7 +2,6 @@
 
 /**
  * _prompt - prompt user to enter a command
- * @flag_exit: flag to exit
  * Return: the buffer
  */
 char *_prompt()
