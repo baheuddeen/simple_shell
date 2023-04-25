@@ -27,7 +27,8 @@ typedef struct list_s
 } list_s;
 
 
-char *_prompt(int *flag_exit);
+char *_prompt();
+int _getline(char **buffer, size_t *bufsize, int fd);
 char *_strtok(char *str, const char *delim);
 char *_strpbrk(char *s, const char *accept);
 char *_strchr(const char *s, int c);
