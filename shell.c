@@ -11,7 +11,7 @@ int main(__attribute__((unused)) int _argc, char *_argv[])
 	char *buffer = NULL;
 	char **argv = NULL;
 	pid_t child_pid;
-	int status, flag_exit = 0;
+	int status;
 
 	do {
 		child_pid = fork();
@@ -24,7 +24,7 @@ int main(__attribute__((unused)) int _argc, char *_argv[])
 		{
 			int length = 0;
 
-			buffer = _prompt(&flag_exit);
+			buffer = _prompt();
 			length = _get_length(buffer);
 			argv = (char **)malloc(sizeof(char *) * length);
 			if (argv == NULL)
@@ -38,8 +38,6 @@ int main(__attribute__((unused)) int _argc, char *_argv[])
 			if (_strcmp(argv[0], "env") == 0)
 				_print_env(argv, buffer);
 			_execute_command(argv, buffer, _argv);
-			if (flag_exit == 1)
-				return (1);
 			return (0);
 		}
 		else
