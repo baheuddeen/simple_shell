@@ -6,11 +6,14 @@
  * @_argv: the arguments
  * Return: 0 on success
  */
-int main(__attribute__((unused)) int _argc, char *_argv[])
+int main(int argc, char *argv[])
 {
 	char *buffer = NULL;
-	char **argv = NULL;
+	char **_argv = NULL;
 	int status = 0;
+
+	if (argc != 1)
+		return (2);
 
 	signal(SIGINT, sig_handler);
 	while (1)
@@ -19,20 +22,20 @@ int main(__attribute__((unused)) int _argc, char *_argv[])
 
 		buffer = _prompt();
 		length = _get_length(buffer);
-		argv = (char **)malloc(sizeof(char *) * length);
-		if (argv == NULL)
+		_argv = (char **)malloc(sizeof(char *) * length);
+		if (_argv == NULL)
 		{
 			perror("Unable to allocate argv");
 			exit(1);
 		}
-		_init_argv(argv, length);
-		_get_argv(buffer, argv, length);
-		validation = _validate_argv(argv, buffer);
+		_init_argv(_argv, length);
+		_get_argv(buffer, _argv, length);
+		validation = _validate_argv(_argv, buffer);
 		if (validation == 1)
 			continue;
 		if (validation == 2)
 			exit(0);
-		status = _execute_command(argv, buffer, _argv);
+		status = _execute_command(_argv, buffer, argv);
 	}
 
 	return (status);
