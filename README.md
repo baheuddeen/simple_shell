@@ -1,140 +1,105 @@
-# ALX Simple Shell Team Project
-This is an ALX collaboration project on Shell. We were tasked to create a simple shell that mimics the Bash shell. Our shell shall be called hsh
+# 0x16. C - Simple Shell
 
-## Project was completed using
-• C language
-• Shell
-• Betty linter
-
-## General Requirement for project
-• All files will be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror -Wextra -pedantic -std=gnu89
-• All files should end with a new line
-• A README.md file, at the root of the folder of the project is mandatory
-• Use the Betty style. It will be checked using betty-style.pl and betty-doc.pl
-• Shell should not have any memory leaks
-• No more than 5 functions per file
-• All header files should be include guarded
-• Write a README with the description of the project
-
-## Description
-
-hsh is a simple UNIX command language interpreter that reads commands from either a file or standard input and executes them.
-
-## How hsh works
-
-• Prints a prompt and waits for a command from the user
-• Creates a child process in which the command is checked
-• Checks for built-ins, aliases in the PATH, and local executable programs
-• The child process is replaced by the command, which accepts arguments
-• When the command is done, the program returns to the parent process and prints the prompt
-• The program is ready to receive a new command
-• To exit: press Ctrl-D or enter "exit" (with or without a status)
-• Works also in non interactive mode
-
-
-# Compilation
-
-`gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh`
-
-
-# Invocation
-
-Usage: hsh [filename]
-To invoke hsh, compile all `.c` files in the repository and run the resulting executable.
-
-hsh can be invoked both interactively and non-interactively. If hsh is invoked with standard input not connected to a terminal, it reads and executes received commands in order.
-
-Example:
-
-```c
-$ echo "echo 'hello'" | ./hsh
-'hello'
-$
-```
-If hsh is invoked with standard input connected to a terminal (determined by isatty(3)), an interactive shell is opened. When executing interactively, hsh displays the prompt $  when it is ready to read a command.
-
-
-Example:
-
-```c
-$./hsh
-$
-```
-Alternatively, if command line arguments are supplied upon invocation, hsh treats the first argument as a file from which to read commands. The supplied file should contain one command per line. hsh runs each of the commands contained in the file in order before exiting.
-
-## Environment
-
-Upon invocation, hsh receives and copies the environment of the parent process in which it was executed. This environment is an array of name-value strings describing variables in the format NAME=VALUE. A few key environmental variables are:
-
-## HOME
-
-The home directory of the current user and the default directory argument for the cd builtin command.
-
-```c
-$ echo "echo $HOME" | ./hsh
-/home/projects
-```
-## PWD
-
-The current working directory as set by the cd command.
-
-```c
-$ echo "echo $PWD" | ./hsh
-/home/projects/alx/simple_shell
-```
-## OLDPWD
-
-The previous working directory as set by the cd command.
-
-```c
-$ echo "echo $OLDPWD" | ./hsh
-/home/projects/alx/printf
-```
-## PATH
-
-A colon-separated list of directories in which the shell looks for commands. A null directory name in the path (represented by any of two adjacent colons, an initial colon, or a trailing colon) indicates the current directory.
-
-
-```c
-$ echo "echo $PATH" | ./hsh
-/home/projects/.cargo/bin:/home/projects/.local/bin:/home/projects/.rbenv/plugins/ruby-build/bin:/home/projects/.rbenv/shims:/home/projects/.rbenv/bin:/home/projects/.nvm/versions/node/v10.15.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/projects/.cargo/bin:/home/projects/workflow:/home/projects/.local/bin
+```sh
+     _____       _                     __    _____ _          _ _ 
+    / ____|     | |                   / _|  / ____| |        | | |
+   | |  __  __ _| |_ ___  ___    ___ | |_  | (___ | |__   ___| | |
+   | | |_ |/ _` | __/ _ \/ __|  / _ \|  _|  \___ \| '_ \ / _ \ | |
+   | |__| | (_| | ||  __/\__ \ | (_) | |    ____) | | | |  __/ | |
+    \_____|\__,_|\__\___||___/  \___/|_|   |_____/|_| |_|\___|_|_|
 ```
 
-## Command Execution
+<details>
+<summary>The Gates of Shell by Spencer Cheng, featuring Julien Barbier</summary>
+<img src="https://user-images.githubusercontent.com/29776892/129798799-6f730688-8728-49ed-b01b-13bec0fa2896.jpeg">
+</details>
 
-After receiving a command, hsh tokenizes it into words using " " as a delimiter. The first word is considered the command and all remaining words are considered arguments to that command. hsh then proceeds with the following actions:
+## Resource
 
-1. If the first character of the command is neither a slash (\) nor dot (.), the shell searches for it in the list of shell builtins. If there exists a builtin by that name, the builtin is invoked.
-2. If the first character of the command is none of a slash (\), dot (.), nor builtin, hsh searches each element of the PATH environmental variable for a directory containing an executable file by that name.
-3. If the first character of the command is a slash (\) or dot (.) or either of the above searches was successful, the shell executes the named program with any remaining given arguments in a separate execution environment.
+- [Unix shell](https://en.wikipedia.org/wiki/Unix_shell)
+- [Thompson shell](https://en.wikipedia.org/wiki/Thompson_shell)
+- [Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson)
+- [Everything you need to know to start coding your own shell](https://www.notion.so/C-Programming-f13cdb9661db464f8ea326c5a2654e8e)
 
-## Exit Status
+---
 
-hsh returns the exit status of the last command executed, with zero indicating success and non-zero indicating failure.
+<details>
+<summary>List of allowed functions and system calls</summary>
 
-If a command is not found, the return status is `127`; if a command is found but is not executable, the return status is `126`.
++ `access` (man 2 access)
++ `chdir` (man 2 chdir)
++ `close` (man 2 close)
++ `closedir` (man 3 closedir)
++ `execve` (man 2 execve)
++ `exit` (man 3 exit)
++ `\_exit` (man 2 \_exit)
++ `fflush` (man 3 fflush)
++ `fork` (man 2 fork)
++ `free`(man 3 free)
++ `getcwd` (man 3 getcwd)
++ `getline` (man 3 getline)
++ `getpid` (man 2 getpid)
++ `isatty` (man 3 isatty)
++ `kill` (man 2 kill)
++ `malloc` (man 3 malloc)
++ `open` (man 2 open)
++ `opendir` (man 3 opendir)
++ `perror` (man 3 perror)
++ `read` (man 2 read)
++ `readdir` (man 3 readdir)
++ `signal` (man 2 signal)
++ `stat` (\_\_xstat) (man 2 stat)
++ `lstat` (\_\_lxstat) (man 2 lstat)
++ `fstat` (\_\_fxstat) (man 2 fstat)
++ `strtok` (man 3 strtok)
++ `wait` (man 2 wait)
++ `waitpid` (man 2 waitpid)
++ `wait3` (man 2 wait3)
++ `wait4` (man 2 wait4)
++ `write` (man 2 write)
 
-All builtins return zero on success and one or two on incorrect usage (indicated by a corresponding error message).
+</details>
 
-## Signals
+<details>
+<summary>The shell will be compiled this way:</summary>
+<pre>$ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 \*.c -o hsh</pre>
+</details>
 
-While running in interactive mode, hsh ignores the keyboard input Ctrl+c. Alternatively, an input of end-of-file `(Ctrl+d)` will exit the program.
+## Output
 
-User hits `Ctrl+d` in the third line.
+- Unless specified otherwise, your program must have the exact same output as `sh` (`/bin/sh`) as well as the exact same error output.
+- The only difference is when you print an error, the name of the program must be equivalent to your `argv[0]` (see below)
 
+<details>
+     <summary>Example of error with sh:</summary>
+<pre>$ echo "qwerty" | /bin/sh<br>/bin/sh: 1: qwerty: not found<br>$ echo "qwerty" | /bin/../bin/sh<br>/bin/../bin/sh: 1: qwerty: not found<br>$</pre>
+</details>
 
-```
-$ ./hsh
-$ ^C
-$ ^C
-$
-```
+<details>
+<summary>Same error with your program hsh:</summary>
+<pre>$ echo "qwerty" | ./hsh<br>./hsh: 1: qwerty: not found<br>$ echo "qwerty" | ./././hsh<br>./././hsh: 1: qwerty: not found<br>$</pre>
+</details>
 
+## Testing
+
+<details>
+<summary>The shell should work like this in interactive mode:</summary>
+<pre>$ ./hsh<br>($) /bin/ls<br>hsh main.c shell.c<br>($)<br>($) exit<br>$</pre>
+</details>
+
+<details>
+<summary>But also in non-interactive mode:</summary>
+<pre>$ echo "/bin/ls" | ./hsh<br>hsh main.c shell.c test\_ls\_2<br>$<br>$ cat test\_ls\_2<br>/bin/ls<br>/bin/ls<br>$<br>$ cat test\_ls\_2 | ./hsh<br>hsh main.c shell.c test\_ls\_2<br>hsh main.c shell.c test\_ls\_2<br>$</pre>
+</details>
+
+## Features
+
+- To add as we progress
+
+## Builtins
+
+- To add as we progress
 
 ## Authors
 
-[Muhammad Baheuddeen](https://github.com/baheuddeen) - Developer ([contact](muhammad.baheuddeen@gmail.com))
-
-
-[Salma wagdy](https://github.com/SalmaWR) - Developer ([contact](salma.wagdy@hotmail.com))
-
+- iAmG-r00t 👾
