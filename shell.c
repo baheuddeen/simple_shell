@@ -91,7 +91,7 @@ int _execute_command(char **argv, char *buffer, char **_argv)
 		else
 			command = argv[0];
 
-		if (_strcmp(command, "env") == 0)
+		if (_strcmp(command, "env") = 0)
 			_print_env(argv, buffer);
 
 		if (execve(command, argv, environ) == -1)
