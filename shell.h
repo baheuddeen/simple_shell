@@ -28,7 +28,7 @@ typedef struct list_s
 } list_s;
 
 void sig_handler(int sig);
-char *_prompt();
+char *_prompt(int status);
 int _getline(char **buffer, size_t *bufsize, int fd);
 char *_strtok(char *str, const char *delim);
 char *_strpbrk(char *s, const char *accept);

@@ -16,6 +16,11 @@ void _get_argv(char *buffer, char **argv, int length)
 
 	while (token != NULL && i < length)
 	{
+		if (_strcmp(token, " ") == 0 || _strcmp(token, "\t") == 0)
+		{
+			token = _strtok(NULL, " ");
+			continue;
+		}
 		argv[i] = token;
 		token = _strtok(NULL, " ");
 		i++;
@@ -33,6 +38,7 @@ int _print_argv(char **argv)
 
 	while (argv[i] != NULL)
 	{
+		printf("%s\n", argv[i]);
 		i++;
 	}
 	return (0);

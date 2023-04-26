@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	{
 		int length = 0, validation = 0;
 
-		buffer = _prompt();
+		buffer = _prompt(status);
 		length = _get_length(buffer);
 		_argv = (char **)malloc(sizeof(char *) * length);
 		if (_argv == NULL)

@@ -2,9 +2,10 @@
 
 /**
  * _prompt - prompt user to enter a command
+ * @status: the status
  * Return: the buffer
  */
-char *_prompt()
+char *_prompt(int status)
 {
 	char *buffer = NULL, *prompt = "$ ", *new_line = "\n";
 	size_t bufsize = 256;
@@ -12,14 +13,17 @@ char *_prompt()
 
 	buffer = (char *)malloc(sizeof(char) * bufsize);
 	if (buffer == NULL)
-	{
 		perror("Unable to allocate buffer");
-	}
 	if (!isatty(STDIN_FILENO))
 	{
 		characters = _getline(&buffer, &bufsize, STDIN_FILENO);
 		if (!characters)
-			exit(0);
+		{
+			if (status == 0)
+				exit(0);
+			else
+				exit(127);
+		}
 	}
 	else
 	{
@@ -32,13 +36,14 @@ char *_prompt()
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, new_line, _strlen(new_line));
 		free(buffer);
-		exit(0);
+		if (status == 0)
+			exit(0);
+		else
+			exit(127);
 	}
 
 	if (buffer[characters - 1] == '\n')
-	{
 		buffer[characters - 1] = '\0';
-	}
 
 	return (buffer);
 }
