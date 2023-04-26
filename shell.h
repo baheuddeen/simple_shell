@@ -7,6 +7,7 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <signal.h>
 
 
 extern char **environ;
@@ -26,7 +27,7 @@ typedef struct list_s
 	struct list_s *next;
 } list_s;
 
-
+void sig_handler(int sig);
 char *_prompt();
 int _getline(char **buffer, size_t *bufsize, int fd);
 char *_strtok(char *str, const char *delim);

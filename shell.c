@@ -12,6 +12,7 @@ int main(__attribute__((unused)) int _argc, char *_argv[])
 	char **argv = NULL;
 	int status = 0;
 
+	signal(SIGINT, sig_handler);
 	while (status == 0)
 	{
 		int length = 0, validation = 0;
@@ -138,4 +139,17 @@ char *_get_location(list_s *dirs, char *command)
 		free(temp);
 	}
 	return (NULL);
+}
+
+/**
+ * sig_handler - Prints a new prompt upon a signal.
+ * @sig: The signal.
+ */
+void sig_handler(int sig)
+{
+	char *new_prompt = "\n$ ";
+
+	(void)sig;
+	signal(SIGINT, sig_handler);
+	write(STDIN_FILENO, new_prompt, 3);
 }
