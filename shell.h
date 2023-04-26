@@ -47,6 +47,8 @@ void _print_env(char **argv, char *buffer);
 int _execute_command(char **argv, char *buffer, char **_argv);
 list_s *_get_env_values(const char *variable);
 char *_get_location(list_s *dirs, char *command);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+
 
 
 /** Linked List*/
