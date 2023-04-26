@@ -24,7 +24,7 @@ char *_prompt()
 	else
 	{
 		write(STDOUT_FILENO, prompt, _strlen(prompt));
-		characters = _getline(&buffer, &bufsize, STDIN_FILENO);
+		characters = getline(&buffer, &bufsize, stdin);
 	}
 
 	if (feof(stdin))
