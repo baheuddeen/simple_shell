@@ -98,7 +98,7 @@ int _execute_command(char **argv, char *buffer, char **_argv)
 		if (execve(command, argv, environ) == -1)
 			perror(_argv[0]);
 
-		exit (127);
+		exit(127);
 	}
 	else
 	{
