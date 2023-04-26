@@ -2,8 +2,8 @@
 
 /**
  * main - main function
- * @_argc: number of arguments
- * @_argv: the arguments
+ * @argc: number of arguments
+ * @argv: the arguments
  * Return: 0 on success
  */
 int main(int argc, char *argv[])
