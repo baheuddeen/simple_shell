@@ -13,7 +13,7 @@ int main(__attribute__((unused)) int _argc, char *_argv[])
 	int status = 0;
 
 	signal(SIGINT, sig_handler);
-	while (status == 0)
+	while (1)
 	{
 		int length = 0, validation = 0;
 
@@ -35,7 +35,7 @@ int main(__attribute__((unused)) int _argc, char *_argv[])
 		status = _execute_command(argv, buffer, _argv);
 	}
 
-	return (0);
+	return (status);
 }
 
 /**
@@ -98,14 +98,14 @@ int _execute_command(char **argv, char *buffer, char **_argv)
 		if (execve(command, argv, environ) == -1)
 			perror(_argv[0]);
 
-		return (0);
+		exit (127);
 	}
 	else
 	{
 		wait(&status);
 		free(argv);
 		free(buffer);
-		return (0);
+		return (status);
 	}
 }
 
