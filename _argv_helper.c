@@ -58,19 +58,21 @@ void _init_argv(char **argv, int length)
  * _validate_argv - validate the arguments
  * @argv: the arguments
  * @buffer: the buffer
+ * Return: 0 on success
  */
-void _validate_argv(char **argv, char *buffer)
+int _validate_argv(char **argv, char *buffer)
 {
 	if (argv[0] == NULL)
 	{
 		free(argv);
 		free(buffer);
-		exit(0);
+		return (1);
 	}
 	if (strcmp(argv[0], "exit") == 0)
 	{
 		free(argv);
 		free(buffer);
-		exit(1);
+		return (2);
 	}
+	return (0);
 }

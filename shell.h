@@ -42,9 +42,9 @@ int _print_argv(char **argv);
 int _get_length(char *buffer);
 void _init_argv(char **argv, int length);
 void _get_argv(char *buffer, char **argv, int length);
-void _validate_argv(char **argv, char *buffer);
+int _validate_argv(char **argv, char *buffer);
 void _print_env(char **argv, char *buffer);
-void _execute_command(char **argv, char *buffer, char **_argv);
+int _execute_command(char **argv, char *buffer, char **_argv);
 list_s *_get_env_values(const char *variable);
 char *_get_location(list_s *dirs, char *command);
 

@@ -10,39 +10,30 @@ int main(__attribute__((unused)) int _argc, char *_argv[])
 {
 	char *buffer = NULL;
 	char **argv = NULL;
-	pid_t child_pid;
-	int status;
+	int status = 0;
 
-	do {
-		child_pid = fork();
-		if (child_pid == -1)
-		{
-			perror(_argv[0]);
-			return (1);
-		}
-		if (child_pid == 0)
-		{
-			int length = 0;
+	while (status == 0)
+	{
+		int length = 0, validation = 0;
 
-			buffer = _prompt();
-			length = _get_length(buffer);
-			argv = (char **)malloc(sizeof(char *) * length);
-			if (argv == NULL)
-			{
-				perror("Unable to allocate argv");
-				exit(1);
-			}
-			_init_argv(argv, length);
-			_get_argv(buffer, argv, length);
-			_validate_argv(argv, buffer);
-			if (_strcmp(argv[0], "env") == 0)
-				_print_env(argv, buffer);
-			_execute_command(argv, buffer, _argv);
-			return (0);
+		buffer = _prompt();
+		length = _get_length(buffer);
+		argv = (char **)malloc(sizeof(char *) * length);
+		if (argv == NULL)
+		{
+			perror("Unable to allocate argv");
+			exit(1);
 		}
-		else
-			wait(&status);
-	} while (status == 0);
+		_init_argv(argv, length);
+		_get_argv(buffer, argv, length);
+		validation = _validate_argv(argv, buffer);
+		if (validation == 1)
+			continue;
+		if (validation == 2)
+			exit(0);
+		status = _execute_command(argv, buffer, _argv);
+	}
+
 	return (0);
 }
 
@@ -54,10 +45,12 @@ int main(__attribute__((unused)) int _argc, char *_argv[])
 void _print_env(char **argv, char *buffer)
 {
 	int i = 0;
+	char *new_line = "\n";
 
 	while (environ[i] != NULL)
 	{
-		printf("%s\n", environ[i]);
+		write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
+		write(STDOUT_FILENO, new_line, _strlen(new_line));
 		i++;
 	}
 	free(argv);
@@ -70,33 +63,49 @@ void _print_env(char **argv, char *buffer)
  * @argv: the arguments
  * @buffer: the buffer
  * @_argv: the arguments
+ * Return: 0 on success
  */
-void _execute_command(char **argv, char *buffer, char **_argv)
+int _execute_command(char **argv, char *buffer, char **_argv)
 {
 	char *command = NULL;
+	int status = 0;
+	pid_t child_pid;
 
-	if (*argv[0] != '/' && *argv[0] != '.')
+	child_pid = fork();
+	if (child_pid == -1)
 	{
-		list_s *results = NULL;
-
-		results = _get_env_values("PATH");
-		command = _get_location(results, argv[0]);
-		if (!command)
+		perror(_argv[0]);
+		return (1);
+	}
+	if (child_pid == 0)
+	{
+		if (*argv[0] != '/' && *argv[0] != '.')
 		{
-			command = argv[0];
+			list_s *results = NULL;
+
+			results = _get_env_values("PATH");
+			command = _get_location(results, argv[0]);
+			if (!command)
+				command = argv[0];
 		}
+		else
+			command = argv[0];
+
+		if (_strcmp(command, "env") == 0)
+			_print_env(argv, buffer);
+
+		if (execve(command, argv, environ) == -1)
+			perror(_argv[0]);
+
+		return (0);
 	}
 	else
 	{
-		command = argv[0];
+		wait(&status);
+		free(argv);
+		free(buffer);
+		return (0);
 	}
-
-	if (execve(command, argv, environ) == -1)
-	{
-		perror(_argv[0]);
-	}
-	free(argv);
-	free(buffer);
 }
 
 /**

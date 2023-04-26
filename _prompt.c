@@ -6,7 +6,7 @@
  */
 char *_prompt()
 {
-	char *buffer = NULL;
+	char *buffer = NULL, *prompt = "$ ", *new_line = "\n";
 	size_t bufsize = 256;
 	size_t characters = 0;
 
@@ -19,20 +19,20 @@ char *_prompt()
 	{
 		characters = _getline(&buffer, &bufsize, STDIN_FILENO);
 		if (!characters)
-			exit(1);
+			exit(0);
 	}
 	else
 	{
-		printf("$ ");
+		write(STDOUT_FILENO, prompt, _strlen(prompt));
 		characters = getline(&buffer, &bufsize, stdin);
 	}
 
 	if (feof(stdin))
 	{
 		if (isatty(STDIN_FILENO))
-			printf("\n");
+			write(STDOUT_FILENO, new_line, _strlen(new_line));
 		free(buffer);
-		exit(1);
+		exit(0);
 	}
 
 	if (buffer[characters - 1] == '\n')
