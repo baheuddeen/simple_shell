@@ -52,7 +52,7 @@ char *_prompt(int status)
 /**
  * _get_length - get the length of the buffer words
  * @buffer: the buffer
- * Return: the length
+ * Return: the length of buffer
  */
 int _get_length(char *buffer)
 {
