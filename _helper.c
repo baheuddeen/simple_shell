@@ -33,7 +33,7 @@ int number_length(int num)
 /**
  * _itoa - Converts an integer to a string.
  * @num: The integer.
- * Return: The string.
+ * Return: The string as a buffer.
  */
 char *_itoa(int num)
 {
