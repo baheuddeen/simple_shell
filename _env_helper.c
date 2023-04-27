@@ -24,11 +24,13 @@ char **_get_env(const char *variable)
 list_s *_get_env_values(const char *variable)
 {
 	char **env_value = _get_env(variable);
+	char temp_env_value[1024];
 	char *dirs = NULL;
 	int index = 0;
 	int equal_sign_index = 0;
 	list_s *result = NULL;
 
+	_strcpy(temp_env_value, *env_value);
 	if (!env_value)
 		return (NULL);
 
@@ -36,7 +38,7 @@ list_s *_get_env_values(const char *variable)
 		index++;
 	equal_sign_index = ++index;
 
-	dirs = _strtok((*env_value) + equal_sign_index, ":");
+	dirs = _strtok((temp_env_value) + equal_sign_index, ":");
 	while (dirs)
 	{
 		add_node_end(&result, dirs);

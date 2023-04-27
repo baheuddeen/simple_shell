@@ -74,7 +74,7 @@ int _validate_argv(char **argv, char *buffer)
 		free(buffer);
 		return (1);
 	}
-	if (strcmp(argv[0], "exit") == 0)
+	if (_strcmp(argv[0], "exit") == 0)
 	{
 		free(argv);
 		free(buffer);
