@@ -4,7 +4,7 @@
  * _strcpy - copy a string
  * @dest: the destination string
  * @src: the source string
- * Return: a pointer that point to the destination string
+ * Return: a pointer to the destination string
  */
 char *_strcpy(char *dest, const char *src)
 {
