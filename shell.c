@@ -80,6 +80,7 @@ int _execute_command(char **argv, char *buffer, char **_argv, int *counter)
 		else
 			command = argv[0];
 		_exec(command, argv, _argv, buffer, counter, not_exist);
+		return (0);
 	}
 	else
 	{
