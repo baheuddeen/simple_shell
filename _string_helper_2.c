@@ -62,7 +62,7 @@ int _strcmp(const char *s1, const char *s2)
 }
 
 /**
- * _strncmp - compare two strings
+ * _strncmp - compares two strings
  * @s1: the first string
  * @s2: the second string
  * @n: the number of bytes to compare
