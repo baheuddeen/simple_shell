@@ -90,7 +90,7 @@ The previous working directory as set by the cd command.
 $ echo "echo $OLDPWD" | ./hsh
 /home/projects/alx/printf
 ```
-## PATH
+## PATH:
 
 A colon-separated list of directories in which the shell looks for commands. A null directory name in the path (represented by any of two adjacent colons, an initial colon, or a trailing colon) indicates the current directory.
 
