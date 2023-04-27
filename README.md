@@ -116,7 +116,7 @@ If a command is not found, the return status is `127`; if a command is found but
 
 All builtins return zero on success and one or two on incorrect usage (indicated by a corresponding error message).
 
-## Signals
+## Signals:
 
 While running in interactive mode, hsh ignores the keyboard input Ctrl+c. Alternatively, an input of end-of-file `(Ctrl+d)` will exit the program.
 
