@@ -91,6 +91,8 @@ int _getline(char **buffer, size_t *bufsize, int fd)
 				exit(1);
 			}
 		}
+		if (c == '"')
+			c = ' ';
 		(*buffer)[i] = c;
 		i++;
 		if (c == '\n')
