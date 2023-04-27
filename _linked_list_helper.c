@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * add_node_end - adds a new node at the end of a list_s.
+ * add_node_end - adds a new node at the end of the list_s.
  * @head: linked list head.
  * @str: string.
  * Return: the address of the first node.
