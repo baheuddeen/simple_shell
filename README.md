@@ -82,7 +82,7 @@ The current working directory as set by the cd command.
 $ echo "echo $PWD" | ./hsh
 /home/projects/alx/simple_shell
 ```
-## OLDPWD
+## OLDPWD:
 
 The previous working directory as set by the cd command.
 
