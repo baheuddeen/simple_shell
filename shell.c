@@ -68,7 +68,7 @@ int _execute_command(char **argv, char *buffer, char **_argv, int *counter)
 	}
 	if (child_pid == 0)
 	{
-		if (*argv[0] != '/' && *argv[0] != '.')
+		if (*argv[0] != '/' && *argv[0] != '.' && _strcmp(argv[0], "env") != 0)
 		{
 			list_s *results = NULL;
 
