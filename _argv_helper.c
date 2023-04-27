@@ -47,7 +47,7 @@ int _print_argv(char **argv)
 /**
  * _init_argv - initialize the arguments
  * @argv: the arguments
- * @length: the length of the buffer words
+ * @length: the length of the buffer characters
  */
 void _init_argv(char **argv, int length)
 {
