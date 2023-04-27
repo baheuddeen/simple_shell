@@ -66,7 +66,7 @@ Alternatively, if command line arguments are supplied upon invocation, hsh treat
 
 Upon invocation, hsh receives and copies the environment of the parent process in which it was executed. This environment is an array of name-value strings describing variables in the format NAME=VALUE. A few key environmental variables are:
 
-## HOME
+## HOME:
 
 The home directory of the current user and the default directory argument for the cd builtin command.
 
