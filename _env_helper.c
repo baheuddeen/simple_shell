@@ -51,7 +51,7 @@ list_s *_get_env_values(const char *variable)
  * _get_location - get the location of the command
  * @dirs: the directories
  * @command: the command
- * Return: the location
+ * Return: the location of the command
  */
 char *_get_location(list_s *dirs, char *command)
 {
