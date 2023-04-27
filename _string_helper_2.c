@@ -42,7 +42,7 @@ char *_strcat(char *dest, char *src)
 }
 
 /**
- * _strcmp - compare two strings
+ * _strcmp - compares two strings
  * @s1: the first string
  * @s2: the second string
  * Return: an integer less than, equal to, or greater than zero if s1 is found,
