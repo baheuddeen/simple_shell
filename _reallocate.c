@@ -6,10 +6,10 @@
  * @new_size: the new size
  * Return: the pointer
  */
-void *_realloc(void *ptr, unsigned int new_size)
+void *_realloc(void *ptr, unsigned new_size)
 {
 	char *new_ptr;
-	unsigned int i = 0;
+	unsigned i = 0;
 
 	if (ptr == NULL)
 	{
@@ -26,8 +26,7 @@ void *_realloc(void *ptr, unsigned int new_size)
 	new_ptr = malloc(new_size);
 	if (new_ptr == NULL)
 		return (NULL);
-
-	while (i < new_size)
+	while (i < new_size && ((char *)ptr)[i] != '\0')
 	{
 		new_ptr[i] = ((char *)ptr)[i];
 		i++;
