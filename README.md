@@ -37,7 +37,7 @@ hsh is a simple UNIX command language interpreter that reads commands from eithe
 `gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh`
 
 
-# Invocation
+# Invocation:
 
 Usage: hsh [filename]
 To invoke hsh, compile all `.c` files in the repository and run the resulting executable.
