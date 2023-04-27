@@ -35,7 +35,7 @@ list_s *add_node_end(list_s **head, const char *str)
 }
 
 /**
- * free_list - frees a list
+ * free_list - frees a linked list
  * @head: head of the linked list.
  * Return: no return.
  */
