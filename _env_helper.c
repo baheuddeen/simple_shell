@@ -76,3 +76,24 @@ char *_get_location(list_s *dirs, char *command)
 	}
 	return (NULL);
 }
+
+/**
+ * _print_env - print the environment
+ * @argv: the arguments
+ * @buffer: the buffer
+ */
+void _print_env(char **argv, char *buffer)
+{
+	int i = 0;
+	char *new_line = "\n";
+
+	while (environ[i] != NULL)
+	{
+		write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
+		write(STDOUT_FILENO, new_line, _strlen(new_line));
+		i++;
+	}
+	free(argv);
+	free(buffer);
+	exit(0);
+}

@@ -36,31 +36,11 @@ int main(int argc, char *argv[])
 			continue;
 		if (validation == 2)
 			exit(0);
+		(counter)++;
 		status = _execute_command(_argv, buffer, argv, &counter);
 	}
 
 	return (status);
-}
-
-/**
- * _print_env - print the environment
- * @argv: the arguments
- * @buffer: the buffer
- */
-void _print_env(char **argv, char *buffer)
-{
-	int i = 0;
-	char *new_line = "\n";
-
-	while (environ[i] != NULL)
-	{
-		write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
-		write(STDOUT_FILENO, new_line, _strlen(new_line));
-		i++;
-	}
-	free(argv);
-	free(buffer);
-	exit(0);
 }
 
 /**
@@ -74,7 +54,7 @@ void _print_env(char **argv, char *buffer)
 int _execute_command(char **argv, char *buffer, char **_argv, int *counter)
 {
 	char *command = NULL;
-	int status = 0;
+	int status = 0, not_exist = 0;
 	pid_t child_pid;
 
 	child_pid = fork();
@@ -89,22 +69,17 @@ int _execute_command(char **argv, char *buffer, char **_argv, int *counter)
 		{
 			list_s *results = NULL;
 
-			results = _get_env_values("PATH");
+			results = _get_env_values("PATH=");
 			command = _get_location(results, argv[0]);
 			if (!command)
+			{
+				not_exist = 1;
 				command = argv[0];
+			}
 		}
 		else
 			command = argv[0];
-
-		if (_strcmp(command, "env") == 0)
-			_print_env(argv, buffer);
-		(*counter)++;
-		if (execve(command, argv, environ) == -1)
-		{
-			_print_err(_argv, counter, command);
-		}
-		exit(127);
+		_exec(command, argv, _argv, buffer, counter, not_exist);
 	}
 	else
 	{
@@ -113,6 +88,30 @@ int _execute_command(char **argv, char *buffer, char **_argv, int *counter)
 		free(buffer);
 		return (status);
 	}
+}
+
+/**
+ * _exec - execute the command
+ * @command: the command
+ * @argv: the arguments
+ * @_argv: the arguments
+ * @buffer: the buffer
+ * @counter: the counter
+ * @not_exist: if the command not exist
+ */
+void _exec(char *command, char **argv, char **_argv, char *buffer,
+	   int *counter, int not_exist)
+{
+		if (_strcmp(command, "env") == 0)
+			_print_env(argv, buffer);
+		if (not_exist == 1)
+		{
+			_print_err(_argv, counter, command);
+			exit(127);
+		}
+		if (execve(command, argv, environ) == -1)
+			_print_err(_argv, counter, command);
+		exit(127);
 }
 
 /**

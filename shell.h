@@ -9,7 +9,6 @@
 #include <sys/stat.h>
 #include <signal.h>
 
-
 extern char **environ;
 
 /**
@@ -50,13 +49,12 @@ list_s *_get_env_values(const char *variable);
 char *_get_location(list_s *dirs, char *command);
 void _print_err(char **argv, int *counter, char *command);
 char *_itoa(int num);
-
-
+void _exec(char *command, char **argv, char **_argv, char *buffer,
+		   int *counter, int not_exist);
 
 /** Linked List*/
 void free_list(list_s *head);
 list_s *add_node_end(list_s **head, const char *str);
 size_t print_list(const list_s *h);
-
 
 #endif
