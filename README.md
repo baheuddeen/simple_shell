@@ -108,7 +108,7 @@ After receiving a command, hsh tokenizes it into words using " " as a delimiter.
 2. If the first character of the command is none of a slash (\), dot (.), nor builtin, hsh searches each element of the PATH environmental variable for a directory containing an executable file by that name.
 3. If the first character of the command is a slash (\) or dot (.) or either of the above searches was successful, the shell executes the named program with any remaining given arguments in a separate execution environment.
 
-## Exit Status
+## Exit Status:
 
 hsh returns the exit status of the last command executed, with zero indicating success and non-zero indicating failure.
 
