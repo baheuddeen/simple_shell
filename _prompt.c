@@ -94,9 +94,12 @@ int _getline(char **buffer, size_t *bufsize, int fd)
 		}
 		if (c == '"')
 			c = ' ';
-		(*buffer)[i] = c;
+		if (c == ';')
+			(*buffer)[i] = ' ';
+		else
+			(*buffer)[i] = c;
 		i++;
-		if (c == '\n')
+		if (c == '\n' || c == ';')
 			break;
 	}
 	(*buffer)[i] = '\0';
