@@ -74,7 +74,7 @@ The home directory of the current user and the default directory argument for th
 $ echo "echo $HOME" | ./hsh
 /home/projects
 ```
-## PWD
+## PWD:
 
 The current working directory as set by the cd command.
 
