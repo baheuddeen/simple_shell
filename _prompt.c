@@ -19,6 +19,7 @@ char *_prompt(int status)
 		characters = _getline(&buffer, &bufsize, STDIN_FILENO);
 		if (!characters)
 		{
+			free(buffer);
 			if (status == 0)
 				exit(0);
 			else
