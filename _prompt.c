@@ -84,7 +84,8 @@ int _getline(char **buffer, size_t *bufsize, int fd)
 	{
 		if (i >= *bufsize)
 		{
-			*buffer = _realloc(*buffer, *bufsize, *bufsize + 256);
+			*bufsize += 256;
+			*buffer = _realloc(*buffer, *bufsize);
 			if (*buffer == NULL)
 			{
 				perror("Unable to reallocate buffer");
