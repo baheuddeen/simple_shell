@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 	char *buffer = NULL;
 	char **_argv = NULL;
 	int status = 0;
+	int counter = 0;
 
 	if (argc != 1)
 		return (2);
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
 			continue;
 		if (validation == 2)
 			exit(0);
-		status = _execute_command(_argv, buffer, argv);
+		status = _execute_command(_argv, buffer, argv, &counter);
 	}
 
 	return (status);
@@ -67,9 +68,10 @@ void _print_env(char **argv, char *buffer)
  * @argv: the arguments
  * @buffer: the buffer
  * @_argv: the arguments
+ * @counter: the counter
  * Return: 0 on success
  */
-int _execute_command(char **argv, char *buffer, char **_argv)
+int _execute_command(char **argv, char *buffer, char **_argv, int *counter)
 {
 	char *command = NULL;
 	int status = 0;
@@ -97,10 +99,11 @@ int _execute_command(char **argv, char *buffer, char **_argv)
 
 		if (_strcmp(command, "env") == 0)
 			_print_env(argv, buffer);
-
+		(*counter)++;
 		if (execve(command, argv, environ) == -1)
-			perror(_argv[0]);
-
+		{
+			_print_err(_argv, counter, command);
+		}
 		exit(127);
 	}
 	else
@@ -113,35 +116,25 @@ int _execute_command(char **argv, char *buffer, char **_argv)
 }
 
 /**
- * _get_location - get the location of the command
- * @dirs: the directories
+ * _print_err - print the error
+ * @argv: the arguments
+ * @counter: the counter
  * @command: the command
- * Return: the location
  */
-char *_get_location(list_s *dirs, char *command)
+void _print_err(char **argv, int *counter, char *command)
 {
-	char *temp = NULL;
-	struct stat status;
+	char err[1024] = "";
+	char *counter_str = NULL;
 
-	while (dirs)
-	{
-		temp = malloc(dirs->len + _strlen(command) + 2);
-		if (!temp)
-			return (NULL);
-
-		_strcpy(temp, dirs->str);
-		_strcat(temp, "/");
-		_strcat(temp, command);
-
-		if (stat(temp, &status) == 0)
-		{
-			return (temp);
-		}
-
-		dirs = dirs->next;
-		free(temp);
-	}
-	return (NULL);
+	counter_str = _itoa(*counter);
+	_strcpy(err, argv[0]);
+	_strcat(err, ": ");
+	_strcat(err, counter_str);
+	_strcat(err, ": ");
+	_strcat(err, command);
+	_strcat(err, ": not found\n");
+	write(STDERR_FILENO, err, _strlen(err));
+	free(counter_str);
 }
 
 /**

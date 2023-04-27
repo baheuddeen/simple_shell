@@ -44,3 +44,35 @@ list_s *_get_env_values(const char *variable)
 	}
 	return (result);
 }
+
+/**
+ * _get_location - get the location of the command
+ * @dirs: the directories
+ * @command: the command
+ * Return: the location
+ */
+char *_get_location(list_s *dirs, char *command)
+{
+	char *temp = NULL;
+	struct stat status;
+
+	while (dirs)
+	{
+		temp = malloc(dirs->len + _strlen(command) + 2);
+		if (!temp)
+			return (NULL);
+
+		_strcpy(temp, dirs->str);
+		_strcat(temp, "/");
+		_strcat(temp, command);
+
+		if (stat(temp, &status) == 0)
+		{
+			return (temp);
+		}
+
+		dirs = dirs->next;
+		free(temp);
+	}
+	return (NULL);
+}

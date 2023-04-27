@@ -45,10 +45,11 @@ void _init_argv(char **argv, int length);
 void _get_argv(char *buffer, char **argv, int length);
 int _validate_argv(char **argv, char *buffer);
 void _print_env(char **argv, char *buffer);
-int _execute_command(char **argv, char *buffer, char **_argv);
+int _execute_command(char **argv, char *buffer, char **_argv, int *counter);
 list_s *_get_env_values(const char *variable);
 char *_get_location(list_s *dirs, char *command);
-void *_realloc(void *ptr, unsigned int new_size);
+void _print_err(char **argv, int *counter, char *command);
+char *_itoa(int num);
 
 
 
