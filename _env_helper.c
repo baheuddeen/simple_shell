@@ -4,7 +4,7 @@
  * _get_env - Gets an env variable.
  * @variable: The name of the environmental variable to get.
  *
- * Return: a pointer to the environmental variable other wise
+ * Return: a pointer to the environmental variable otherwise
  *  NULL.
  */
 char **_get_env(const char *variable)
