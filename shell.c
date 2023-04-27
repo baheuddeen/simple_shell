@@ -34,8 +34,11 @@ int main(int argc, char *argv[])
 		validation = _validate_argv(_argv, buffer);
 		if (validation == 1)
 			continue;
-		if (validation == 2)
+		if (validation == 2 && status == 0)
 			exit(0);
+		else if (validation == 2)
+			exit(2);
+
 		(counter)++;
 		status = _execute_command(_argv, buffer, argv, &counter);
 	}
@@ -101,18 +104,18 @@ int _execute_command(char **argv, char *buffer, char **_argv, int *counter)
  * @not_exist: if the command not exist
  */
 void _exec(char *command, char **argv, char **_argv, char *buffer,
-	   int *counter, int not_exist)
+		   int *counter, int not_exist)
 {
-		if (_strcmp(command, "env") == 0)
-			_print_env(argv, buffer);
-		if (not_exist == 1)
-		{
-			_print_err(_argv, counter, command);
-			exit(127);
-		}
-		if (execve(command, argv, environ) == -1)
-			_print_err(_argv, counter, command);
+	if (_strcmp(command, "env") == 0)
+		_print_env(argv, buffer);
+	if (not_exist == 1)
+	{
+		_print_err(_argv, counter, command);
 		exit(127);
+	}
+	if (execve(command, argv, environ) == -1)
+		_print_err(_argv, counter, command);
+	exit(127);
 }
 
 /**
