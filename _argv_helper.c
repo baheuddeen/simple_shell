@@ -7,7 +7,7 @@
  * _get_argv - get the arguments from the buffer
  * @buffer: the buffer
  * @argv: the arguments
- * @length: the length of the buffer words
+ * @length: length of the buffer words
  */
 void _get_argv(char *buffer, char **argv, int length)
 {
